@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from "react-router";
+import { useLocation } from "react-router-dom";
+import "./App.css";
+import NavBar from "./components/NavBar/NavBar";
+import Banner from "./components/Home/Banner";
+import About from "./components/About/About";
+import Projects from "./components/Projects/Projects";
+import Blog from "./components/Blog/Blog";
+import Join from "./components/Join/Join";
+import Home from "./components/Home/Home";
+import Footer from "./components/Footer/Footer";
+import MemberList from "./components/Members/MembersList";
+
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+
+library.add(fab, faCheckSquare);
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <NavBar />
+        <Banner location={location.pathname} />
+
+        <Switch>
+          <Route path="/chi-siamo">
+            <About />
+          </Route>
+          <Route path="/progetti">
+            <Projects />
+          </Route>
+          <Route path="/membri">
+            <MemberList />
+          </Route>
+          <Route path="/blog">
+            <Blog />
+          </Route>
+          <Route path="/unisciti">
+            <Join />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
     </div>
   );
 }
